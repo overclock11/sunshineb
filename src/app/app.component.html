@@ -1,0 +1,19 @@
+<main class="main">
+  <section class="main__header">
+    <img src="../assets/logo.png" alt="logo-sunshineb">
+    <h2>{{this.title}}</h2>
+  </section>
+
+  <hr>
+
+  <section id="menu" class="main__menu">
+    <mat-chip-set aria-label="menu" role="list">
+      <mat-chip role="listitem" color="primary" routerLink="" routerLinkActive="active">Agregar</mat-chip>
+      <mat-chip role="listitem" routerLink="/list" routerLinkActive="active">Listar</mat-chip>
+    </mat-chip-set>
+  </section>
+
+  <hr>
+
+  <router-outlet />
+</main>

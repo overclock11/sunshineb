@@ -1,0 +1,28 @@
+.description {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &__inputs{
+    flex-basis: 48%;
+
+    &--full-width {
+      width: 100%;
+    }
+  }
+
+  &__image{
+    flex-basis: 50%;
+    align-content: center;
+
+    &--preview{
+      margin: 0 auto;
+    }
+
+    &--load{
+      margin: 0 auto;
+      display: block;
+      width: 400px;
+    }
+  }
+}
