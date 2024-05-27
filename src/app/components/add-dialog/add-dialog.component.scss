@@ -1,0 +1,12 @@
+.dialog {
+  padding: 10px;
+
+  &__form {
+    display: inline-grid;
+    padding: 10px;
+  }
+
+  &__title {
+    padding: 10px;
+  }
+}

@@ -1,28 +1,54 @@
+<button class="add-button" mat-raised-button color="primary" (click)="addItemToList()" *ngIf="allowAddItems">
+  Agregar item
+</button>
 <div class="table">
   <table mat-table [dataSource]="itemList" class="mat-elevation-z8 demo-table">
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">{{element.position}}</td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>id</th>
+      <td mat-cell *matCellDef="let element">{{element.id}}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
       <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef>Weight</th>
-      <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+    <ng-container matColumnDef="variety">
+      <th mat-header-cell *matHeaderCellDef>Variedad</th>
+      <td mat-cell *matCellDef="let element">{{element.variety}}</td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef>Symbol</th>
-      <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="specie">
+      <th mat-header-cell *matHeaderCellDef>Especie</th>
+      <td mat-cell *matCellDef="let element">{{element.specie}}</td>
     </ng-container>
+
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef>Grado</th>
+      <td mat-cell *matCellDef="let element">{{element.grade}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Foto</th>
+      <td mat-cell *matCellDef="let element">{{element.image}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Acción</th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="removeItem(element.id)" mat-icon-button aria-label="remove icon">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

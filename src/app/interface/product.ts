@@ -4,4 +4,7 @@ export interface Product {
   specie?: string;
   variety?: string;
   grade?: string;
+  image?: string;
+
+  action?: string;
 }

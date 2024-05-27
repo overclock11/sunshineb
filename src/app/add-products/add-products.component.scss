@@ -3,7 +3,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
 
-  &__inputs{
+  &__inputs {
     flex-basis: 48%;
 
     &--full-width {
@@ -11,7 +11,7 @@
     }
   }
 
-  &__image{
+  &__image {
     flex-basis: 50%;
     align-content: center;
 
@@ -23,6 +23,23 @@
       margin: 0 auto;
       display: block;
       width: 400px;
+    }
+  }
+
+  &__action-tables {
+    width: 100%;
+    margin-top: 65px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+
+    &--grade {
+      flex-basis: 49%;
+    }
+    &--variety {
+      align-content: center;
+      flex-basis: 49%;
     }
   }
 }

@@ -1,0 +1,13 @@
+<div class="dialog">
+  <h2 class="dialog__title">Agregar nuevo item</h2>
+  <form [formGroup]="form" class="dialog__form">
+    <mat-form-field *ngFor="let field of data" class="description__inputs--full-width">
+      <mat-label>{{labels[field]}}</mat-label>
+      <input type="text" matInput formControlName="{{field}}" placeholder="{{labels[field]}}">
+    </mat-form-field>
+    <br>
+    <button [disabled]="!this.form.valid" class="add-button" mat-raised-button color="primary" (click)="closeDialog()">
+      Agregar
+    </button>
+  </form>
+</div>

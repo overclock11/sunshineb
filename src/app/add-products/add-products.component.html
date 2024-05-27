@@ -1,5 +1,6 @@
 <h2>Descripción</h2>
 <div class="description">
+
   <section id="description" class="description__inputs">
     <mat-form-field class="description__inputs--full-width">
       <mat-label>id</mat-label>
@@ -17,6 +18,7 @@
     </mat-form-field>
     <br>
   </section>
+
   <section id="load-image" class="description__image">
     <div style="width: 400px; height: 400px; background: indianred" class="description__image--preview"></div>
     <input type="file" style="display: none">
@@ -24,7 +26,23 @@
     <button mat-raised-button color="primary" class="description__image--load">Cargar una imagen</button>
   </section>
 
-  <section id="tables">
-    <app-action-table [itemList]="[{'id': '1', 'name': 'Tulipan'}]" ></app-action-table>
+  <section id="tables" class="description__action-tables">
+    <div id="variety" class="description__action-tables--variety">
+      <app-action-table
+        [itemList]="[{id: '1', name: 'Tulipan', variety: 'pepestepeles gigantus', action: ''}]"
+        [allowAddItems]="true"
+        (idEmitter)="removeItemList($event)"
+        (addItem)="openDialog(dialogTypes.Variety)"
+      />
+    </div>
+    <div id="grade" class="description__action-tables--grade">
+      <app-action-table
+        [itemList]="[{id: '1', grade: 'Grado 1', action: ''}]"
+        [allowAddItems]="true"
+        (idEmitter)="removeItemList($event)"
+        (addItem)="openDialog(dialogTypes.Grade)"
+      />
+    </div>
+
   </section>
 </div>
