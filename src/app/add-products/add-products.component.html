@@ -2,28 +2,34 @@
 <div class="description">
 
   <section id="description" class="description__inputs">
-    <mat-form-field class="description__inputs--full-width">
-      <mat-label>id</mat-label>
-      <input type="email" matInput [formControl]="id" placeholder="ID">
-    </mat-form-field>
-    <br>
-    <mat-form-field class="description__inputs--full-width">
-      <mat-label>Nombre</mat-label>
-      <input type="email" matInput [formControl]="name" placeholder="Nombre">
-    </mat-form-field>
-    <br>
-    <mat-form-field class="description__inputs--full-width">
-      <mat-label>Especie</mat-label>
-      <input type="email" matInput [formControl]="specie" placeholder="Especie">
-    </mat-form-field>
-    <br>
+    <form [formGroup]="form">
+      <mat-form-field class="description__inputs--full-width">
+        <mat-label>id</mat-label>
+        <input type="email" matInput formControlName="id" placeholder="ID">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="description__inputs--full-width">
+        <mat-label>Nombre</mat-label>
+        <input type="email" matInput formControlName="name" placeholder="Nombre">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="description__inputs--full-width">
+        <mat-label>Especie</mat-label>
+        <input type="email" matInput formControlName="specie" placeholder="Especie">
+      </mat-form-field>
+      <br>
+    </form>
   </section>
 
   <section id="load-image" class="description__image">
-    <div style="width: 400px; height: 400px; background: indianred" class="description__image--preview"></div>
-    <input type="file" style="display: none">
+    <div style="width: 400px; height: 400px; background: indianred" class="description__image--preview">
+      <img style="width: 400px; height: 400px;" [src]="previewUrl" *ngIf="previewUrl!==''" alt="previsualizar imagen">
+    </div>
+      <input #inputLoadFile type="file" style="display: none" accept="image/png,image/jpg,image/jpeg" (change)="updatePreview($event)">
     <br>
-    <button mat-raised-button color="primary" class="description__image--load">Cargar una imagen</button>
+    <button mat-raised-button color="primary" class="description__image--load" (click)="loadFile()">
+      Cargar una imagen
+    </button>
   </section>
 
   <section id="tables" class="description__action-tables">
@@ -44,5 +50,11 @@
       />
     </div>
 
+  </section>
+
+  <section id="save" class="description__save">
+    <button [disabled]="!this.form.valid" class="add-button" mat-raised-button color="primary">
+      Guardar
+    </button>
   </section>
 </div>
