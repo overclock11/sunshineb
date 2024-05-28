@@ -55,7 +55,7 @@
   </section>
 
   <section id="save" class="description__save">
-    <button [disabled]="!this.form.valid" class="add-button" mat-raised-button color="primary">
+    <button [disabled]="!this.form.valid" class="add-button" mat-raised-button color="primary" (click)="saveProduct()">
       Guardar
     </button>
   </section>

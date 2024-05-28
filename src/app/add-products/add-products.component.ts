@@ -5,11 +5,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {ActionTableComponent} from "../components/action-table/action-table.component";
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {AddDialogComponent} from "../components/add-dialog/add-dialog.component";
 import {DialogType} from "../emuns/dialogType";
 import {DIALOG_FIELDS} from "../constants/dialogFields";
 import {Product} from "../interface/product";
 import {NgIf} from "@angular/common";
+import {db} from "../db/db";
 
 @Component({
   selector: 'app-add-products',
@@ -28,6 +30,7 @@ export class AddProductsComponent {
     id: '',
     name: '',
     specie: '',
+    image: '',
     grade: [],
     variety: [],
   };
@@ -36,12 +39,12 @@ export class AddProductsComponent {
   dialogTypes = DialogType
   currentTable: DialogType = DialogType.Variety;
   form = new FormGroup({
-    id: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required]),
-    specie: new FormControl('', [Validators.required])
+    id: new FormControl<string>('', [Validators.required]),
+    name: new FormControl<string>('', [Validators.required]),
+    specie: new FormControl<string>('', [Validators.required])
   });
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {}
 
   removeItemList (index: string): void {
     this.product[this.currentTable]?.splice(parseInt(index), 1);
@@ -62,7 +65,6 @@ export class AddProductsComponent {
         this.product.grade?.push({...data, action });
         this.gradeTable.refreshTable();
       }
-      console.log(this.product);
     })
   }
 
@@ -77,8 +79,29 @@ export class AddProductsComponent {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.previewUrl = event.target.result;
+        this.product.image = event.target.result;
       }
       reader.readAsDataURL(files[0]);
+    }
+  }
+
+  async saveProduct() {
+    try {
+      this.product = {
+        ...this.product,
+        id: this.form.get('id')?.value as string,
+        name: this.form.get('name')?.value as string,
+        specie: this.form.get('specie')?.value as string,
+      }
+      await db.product.add(this.product);
+      this._snackBar.open('¡Guardado correctamente!', '', {
+        duration: 3000
+      })
+    } catch (error) {
+      console.log(error);
+      this._snackBar.open('¡Error guardando, revise que el id no esté repetido!', '', {
+        duration: 3000,
+      })
     }
   }
 }
