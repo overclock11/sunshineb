@@ -5,5 +5,5 @@ export interface ProductTable {
   variety?: string;
   grade?: string;
   image?: string;
-  action?: string;
+  action?: boolean;
 }

@@ -1,22 +1,13 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {ActionTableComponent} from "../components/action-table/action-table.component";
-import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogTitle,
-  MatDialogContent,
-} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {AddDialogComponent} from "../components/add-dialog/add-dialog.component";
 import {DialogType} from "../emuns/dialogType";
 import {DIALOG_FIELDS} from "../constants/dialogFields";
-import {F} from "@angular/cdk/keycodes";
-import {ProductTable} from "../interface/productTable";
 import {Product} from "../interface/product";
 import {NgIf} from "@angular/common";
 
@@ -30,8 +21,10 @@ import {NgIf} from "@angular/common";
 export class AddProductsComponent {
 
   @ViewChild('inputLoadFile', {static: false}) inputLoadFile: ElementRef;
+  @ViewChild('variety', {static: false}) varietyTable: ActionTableComponent;
+  @ViewChild('grade', {static: false}) gradeTable: ActionTableComponent;
 
-  products: Product = {
+  product: Product = {
     id: '',
     name: '',
     specie: '',
@@ -41,28 +34,35 @@ export class AddProductsComponent {
 
   previewUrl = '';
   dialogTypes = DialogType
-  constructor(public dialog: MatDialog) {}
+  currentTable: DialogType = DialogType.Variety;
   form = new FormGroup({
     id: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     specie: new FormControl('', [Validators.required])
   });
 
-  removeItemList (removeItem: string): void {
-    console.log("remove ittem")
+  constructor(public dialog: MatDialog) {}
+
+  removeItemList (index: string): void {
+    this.product[this.currentTable]?.splice(parseInt(index), 1);
+    this.currentTable === DialogType.Variety ? this.varietyTable.refreshTable() : this.gradeTable.refreshTable();
   }
 
   openDialog(type: DialogType) {
+    this.currentTable = type;
     const ref = this.dialog.open(AddDialogComponent, {
      data: DIALOG_FIELDS[type]
     });
     ref.afterClosed().subscribe( data => {
-      if (DIALOG_FIELDS[type].length === 2 && data){
-        this.products.variety?.push(data);
+      const action = { action: true }
+      if (data && Object.keys(data).length === 3 ){
+        this.product.variety?.push({...data, action });
+        this.varietyTable.refreshTable();
       } else if(data) {
-        this.products.grade?.push(data);
+        this.product.grade?.push({...data, action });
+        this.gradeTable.refreshTable();
       }
-      console.log(this.products);
+      console.log(this.product);
     })
   }
 
@@ -79,7 +79,6 @@ export class AddProductsComponent {
         this.previewUrl = event.target.result;
       }
       reader.readAsDataURL(files[0]);
-      console.log("FileUpload -> files", files);
     }
   }
 }

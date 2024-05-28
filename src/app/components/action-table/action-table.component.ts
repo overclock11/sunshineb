@@ -4,6 +4,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from "@angular/material/icon";
 import {ProductTable} from "../../interface/productTable";
 import {NgIf} from "@angular/common";
+import {Grade} from "../../interface/grade";
+import {Variety} from "../../interface/variety";
 @Component({
   selector: 'app-action-table',
   standalone: true,
@@ -14,14 +16,16 @@ import {NgIf} from "@angular/common";
 export class ActionTableComponent implements OnInit {
   displayedColumns: string[];
 
-  @Input() itemList: ProductTable[] = [];
+  @Input() itemList: ProductTable[] | Grade[] | Variety[] = [];
   @Input() allowAddItems = false;
   @Output() idEmitter = new EventEmitter<string>();
   @Output() addItem = new EventEmitter<void>();
   @ViewChild(MatTable) table: MatTable<ProductTable>;
 
   ngOnInit() {
-    this.displayedColumns = Object.keys(this.itemList[0]) || [];
+    if (this.itemList.length > 0){
+      this.displayedColumns = Object.keys(this.itemList[0]) || [];
+    }
   }
 
   removeItem(id: string): void{
@@ -31,6 +35,11 @@ export class ActionTableComponent implements OnInit {
 
   addItemToList(): void{
     this.addItem.emit();
+  }
+
+  refreshTable(): void {
+    this.displayedColumns = Object.keys(this.itemList[0]) || [];
+    this.table.renderRows();
   }
 
 }

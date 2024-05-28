@@ -1,10 +1,11 @@
 import {Variety} from "./variety";
 import {Grade} from "./grade";
+import {DialogType} from "../emuns/dialogType";
 
 export interface Product {
   id: string;
   name: string;
   specie: string;
-  variety?: Variety[];
-  grade?: Grade[];
+  [DialogType.Variety]?: Variety[];
+  [DialogType.Grade]?: Grade[];
 }

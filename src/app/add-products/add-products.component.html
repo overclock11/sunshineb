@@ -35,7 +35,8 @@
   <section id="tables" class="description__action-tables">
     <div id="variety" class="description__action-tables--variety">
       <app-action-table
-        [itemList]="[{id: '1', name: 'Tulipan', variety: 'pepestepeles gigantus', action: ''}]"
+        #variety
+        [itemList]="product.variety || []"
         [allowAddItems]="true"
         (idEmitter)="removeItemList($event)"
         (addItem)="openDialog(dialogTypes.Variety)"
@@ -43,7 +44,8 @@
     </div>
     <div id="grade" class="description__action-tables--grade">
       <app-action-table
-        [itemList]="[{id: '1', grade: 'Grado 1', action: ''}]"
+        #grade
+        [itemList]="product.grade || []"
         [allowAddItems]="true"
         (idEmitter)="removeItemList($event)"
         (addItem)="openDialog(dialogTypes.Grade)"
