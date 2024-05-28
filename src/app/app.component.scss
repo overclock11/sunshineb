@@ -3,9 +3,10 @@
 
   &__header {
     display: flex;
-  }
 
-  &__menu {
-
+    &--title {
+      align-content: center;
+      margin-left: 15px;
+    }
   }
 }
