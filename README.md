@@ -16,4 +16,6 @@ Para levantar el proyecto en desarrollo solo se necesitan seguir dos pasos en la
 ### Descripción
 El proyecto permite crear y listar registros de un producto, los datos los almacena en una indexedDB y permite la carga y previsualización de imágenes por producto
 
+Puede ver el demo en http://sunshineb.s3-website.us-east-2.amazonaws.com/
+
 https://github.com/overclock11/sunshineb/assets/9536273/057f61b9-1a7c-467e-9dbf-3bca3c1c646c
